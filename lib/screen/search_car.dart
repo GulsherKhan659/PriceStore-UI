@@ -4,10 +4,9 @@ import 'package:flutter/painting.dart';
 import 'package:pricestore/utils/footer.dart';
 import '/utils/app_bar.dart';
 import '/utils/colors.dart';
-import 'widgets/footer_icon.dart';
-import 'widgets/property_card.dart';
-class PropertyScreen extends StatelessWidget {
-  const PropertyScreen({Key? key}) : super(key: key);
+import 'widgets/car_card_grid.dart';
+class SearchCar extends StatelessWidget {
+  const SearchCar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class PropertyScreen extends StatelessWidget {
 
                 Container(
                   padding:const EdgeInsets.symmetric(horizontal: 10,vertical: 2),
-                  child: Text("All Availble Properties in Islamabad",style: TextStyle(
+                  child: Text("All Availble Cars For Sale",style: TextStyle(
                       color: MyColor.font_color,
                       fontSize: 20
                   ),),
@@ -44,7 +43,7 @@ class PropertyScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text("Sort by : Defualt order",style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.bold,
 
 
                           )),
@@ -57,15 +56,7 @@ class PropertyScreen extends StatelessWidget {
                 ),
                 Expanded(child: ListView(
                   children: [
-
-                    PropertyCard(constraint: constraint, image: "assets/property1.jpg",favouriteIcon: true),
-                    PropertyCard(constraint: constraint, image: "assets/property2.jpg",favouriteIcon: true),
-                    PropertyCard(constraint: constraint, image: "assets/property1.jpg",favouriteIcon: true),
-                    PropertyCard(constraint: constraint, image: "assets/property2.jpg",favouriteIcon: true),
-                    PropertyCard(constraint: constraint, image: "assets/property1.jpg",favouriteIcon: true),
-                    PropertyCard(constraint: constraint, image: "assets/property2.jpg",favouriteIcon: true),
-                    PropertyCard(constraint: constraint, image: "assets/property1.jpg",favouriteIcon: true),
-
+                 CarCardGrid(cardCount: 6,),
                   ],
                 ),),
                 Footer(),

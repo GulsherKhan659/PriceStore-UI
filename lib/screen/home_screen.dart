@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:pricestore/screen/homepage/widgets/home_grid.dart';
-import 'package:pricestore/screen/homepage/widgets/home_icons.dart';
-import 'package:pricestore/screen/homepage/widgets/property_card.dart';
+import 'package:pricestore/utils/footer.dart';
+import '/utils/app_bar.dart';
+import '/screen/widgets/car_card_grid.dart';
+import '/screen/widgets/property_card.dart';
 import '/utils/colors.dart';
-import '/screen/homepage/widgets/footer_icon.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -13,23 +11,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-       appBar: AppBar(
-         backgroundColor: MyColor.backgroud_primary_color,
-         leading: Icon(Icons.chevron_left_rounded,color: MyColor.icon_color,),
-         centerTitle: true,
-         title: Container(
-           width: 100,
-           height: 100,
-           child: Image(image: AssetImage("assets/logo.png"),
-           fit: BoxFit.contain,),
-         ),
-
-         actions: [
-           Padding(padding: EdgeInsets.symmetric(horizontal: 5),
-           child: Icon(Icons.sort,size: 30,color: MyColor.icon_color,),
-           )
-         ],
-       ),
+       appBar:MyAppBar(context),
 
       backgroundColor: MyColor.backgroud_primary_color,
       body: LayoutBuilder(
@@ -51,8 +33,8 @@ class HomeScreen extends StatelessWidget {
                        fontSize: 20
                    ),),
                  ),
-                 PropertyCard(constraint: constraint, image: "assets/property1.jpg"),
-                 PropertyCard(constraint: constraint, image: "assets/property2.jpg"),
+                 PropertyCard(constraint: constraint, image: "assets/property1.jpg",favouriteIcon: false),
+                 PropertyCard(constraint: constraint, image: "assets/property2.jpg",favouriteIcon: false,),
                  Container(
                    padding: const EdgeInsets.symmetric(vertical: 5),
                    alignment: Alignment.center,
@@ -72,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                    ),),
 
                  ),
-                  HomeGrid(),
+                  CarCardGrid(cardCount: 2,),
                  Container(
                    padding: const EdgeInsets.symmetric(vertical: 5),
                    alignment: Alignment.center,
@@ -86,22 +68,7 @@ class HomeScreen extends StatelessWidget {
                  ),
                ],
              ),),
-             Container(
-               height: constraint.maxHeight/10,
-               width: constraint.maxWidth,
-               color: MyColor.footer_color,
-               child: Row(
-                 children: [
-                   FooterIcon(footericon: Icons.home, footertitle: "Home"),
-                   FooterIcon(footericon: Icons.directions_car_rounded, footertitle: "Cars"),
-                   Expanded(child: Container(), flex: 1,),
-                   FooterIcon(footericon: Icons.apartment, footertitle: "Property"),
-                   FooterIcon(footericon: Icons.person_rounded, footertitle: "Profile"),
-
-
-                 ],
-               ),
-             )
+            Footer(),
           ],
         );
         }

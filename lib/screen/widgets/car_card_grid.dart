@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:pricestore/utils/colors.dart';
-class HomeGrid extends StatelessWidget {
-   HomeGrid({Key? key}) : super(key: key);
-  List<String> imagepath = ["","1","","3","","5","","7",];
+class CarCardGrid extends StatelessWidget {
+   int cardCount;
+   CarCardGrid({Key? key,required this.cardCount}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return  Container(
@@ -11,11 +11,24 @@ class HomeGrid extends StatelessWidget {
         child:Row(children: [
            Expanded(
                flex: 1,
-               child: Column(
-                 children: [
+               child:cardCount == 2 ? Column(
+                 children:
+                 [
                    CarCard(image:"assets/car2.png"),
-
                    CarCard(image:"assets/car3.png"),
+                   SizedBox(
+                     height: 60,
+                   ),
+                 ],
+               ):Column(
+                 children:
+                 [
+                   CarCard(image:"assets/car2.png"),
+                   CarCard(image:"assets/car1.png"),
+                   CarCard(image:"assets/car4.png"),
+                   CarCard(image:"assets/car3.png"),
+                   CarCard(image:"assets/car1.png"),
+                   CarCard(image:"assets/car4.png"),
                    SizedBox(
                      height: 60,
                    ),
@@ -24,14 +37,29 @@ class HomeGrid extends StatelessWidget {
            ),
           Expanded(
               flex: 1,
-            child: Column(
+            child:cardCount == 2? Column(
+              children: [
+                SizedBox(
+                  height: 60,
+
+                ),
+                CarCard(image:"assets/car1.png"),
+                CarCard(image:"assets/car4.png"),
+
+
+              ],
+            ): Column(
               children: [
                 SizedBox(
                   height: 60,
                 ),
                 CarCard(image:"assets/car1.png"),
-
+                CarCard(image:"assets/car2.png"),
+                CarCard(image:"assets/car1.png"),
                 CarCard(image:"assets/car4.png"),
+                CarCard(image:"assets/car2.png"),
+                CarCard(image:"assets/car1.png"),
+
 
               ],
             ),
@@ -55,7 +83,7 @@ class CarCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         color: MyColor.backgroud_secondary_color
       ),
-        height: 280,
+       // height: 280,
         width: double.infinity,
         child:Stack(
           children: [
