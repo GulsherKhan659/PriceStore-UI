@@ -3,9 +3,9 @@ import '/utils/colors.dart';
 
 ////////////////Another Widget
 class FieldDropDown extends StatelessWidget {
-  FieldDropDown({Key? key,required this.label,required this.text}) : super(key: key);
+  FieldDropDown({Key? key,required this.label,required this.dropDown}) : super(key: key);
   String label;
-  String text;
+  Widget dropDown;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -21,17 +21,12 @@ class FieldDropDown extends StatelessWidget {
         ),
         SizedBox(height: 5,),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10,),
           decoration: BoxDecoration(
               color: Colors.grey.shade200,
               borderRadius: BorderRadius.circular(6)
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(text),
-              Icon(Icons.arrow_drop_down),
-            ],),
+          child: Row(children:[dropDown]),
         ),
       ],
     );

@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:pricestore/utils/route_name.dart';
+import 'package:pricestore/modals/property_modal.dart';
+import 'package:get/get.dart';
+import 'package:pricestore/screen/property_screens/house_screen.dart';
 import '/utils/colors.dart';
 import 'home_icons.dart';
 class PropertyCard extends StatelessWidget {
-  PropertyCard({Key? key,required this.constraint,required this.image,required this.favouriteIcon}) : super(key: key);
+  PropertyCard({Key? key,required this.constraint,
+    required this.favouriteIcon,
+   required this.propertyBeanClass
+   }) : super(key: key);
   BoxConstraints constraint;
   bool favouriteIcon;
-  String image;
 
+  PropertyBeanClass propertyBeanClass;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=>Navigator.of(context).pushNamed(RouteName.HouseRoute),
+      onTap: ()=>Get.to(()=>HouseScreen(propertyModel: propertyBeanClass)),
       child: Container(
-        height: 280,
+        height: 130,
         width: constraint.maxWidth,
         margin: const EdgeInsets.symmetric(vertical: 5,horizontal: 2),
         child: Card(
@@ -21,7 +26,7 @@ class PropertyCard extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                flex: 1,
+                flex: 4,
                 child: Container(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -30,11 +35,10 @@ class PropertyCard extends StatelessWidget {
                       children: [
                         Container(
                           alignment: Alignment.center,
-                          margin: EdgeInsets.all(8),
+                          margin: EdgeInsets.all(6),
                           child: Text(
-                            "House For Sale",style: TextStyle(
-                              fontSize: 16,
-                              height: 1.2,
+                            "${propertyBeanClass.title}",style: TextStyle(
+                              fontSize: 13,
                               fontWeight: FontWeight.bold,
                               color: MyColor.font_color
                           ),
@@ -46,94 +50,61 @@ class PropertyCard extends StatelessWidget {
                             ),
                             children: [
                               TextSpan(
-                                  text: "PKR "
+                                  text: "PKR ",style: TextStyle(
+                            fontSize: 10)
                               ),
                               TextSpan(
-                                  text: " 2.1 Crore",style: TextStyle(
-                                  fontSize: 24
+                                  text:"${propertyBeanClass.price}",style: TextStyle(
+                                  fontSize: 16
                               )
                               ),
                             ]
                         )),
-                        Text("G-13/1,Islamabad",style: TextStyle(
+                        Text("${propertyBeanClass.location},${propertyBeanClass.city}",overflow: TextOverflow.ellipsis,style: TextStyle(
                             height: 1.2,
-                            color: MyColor.font_color
+                            color: MyColor.font_color,
+                            fontSize: 10
+
                         ),),
-                        Text("5 Marla House in G-13/1,Islamabad",style: TextStyle(
+                        Text("${propertyBeanClass.location},${propertyBeanClass.city}",overflow: TextOverflow.ellipsis,style: TextStyle(
                             decoration: TextDecoration.underline,
-                            fontSize: 9,
+                            fontSize: 8,
                             height: 1.2,
                             color: MyColor.icon_color
                         ),),
-                        Text("Posted By Ali on 30 Jan,21",style: TextStyle(
+                        Text("Posted Data : ${propertyBeanClass.adPostDate}",overflow: TextOverflow.ellipsis,style: TextStyle(
                             fontSize: 10,
                             height: 1.2,
                             color: MyColor.font_color
                         ),),
-                        Text("Key Feature :",style: TextStyle(
-                            fontSize: 16,
-                            height: 1.8,
+                        Text(
+                          "${propertyBeanClass.description}",overflow: TextOverflow.ellipsis,style: TextStyle(
+                            fontSize: 13.5,
+                            height: 1.5,
                             fontWeight: FontWeight.bold,
                             color: MyColor.font_color
                         ),),
                         Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 12),
-                          child: Column(
-                            children: [
-                              HomeIcon(cardicon: Icons.king_bed_outlined,cardtitle: "5 Bedroom",),
-                              HomeIcon(cardicon: Icons.bathtub, cardtitle: "6 Washroom"),
-                              HomeIcon(cardicon: Icons.garage, cardtitle: "Garage"),
-                              HomeIcon(cardicon: Icons.weekend, cardtitle: "Lawn"),
-                            ],
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
+                          child: Row(
+                             mainAxisAlignment: MainAxisAlignment.start,
 
-                            Text("Comapare",style: TextStyle(
-                              color: MyColor.other_color,
-                            ),),
-                            Text("Feedback",style: TextStyle(
-                              color: MyColor.other_color,
-                            ),),
-                          ],
+                             children: [
+                               HomeIcon(cardicon: Icons.king_bed_outlined,cardtitle: "${propertyBeanClass.n_bedroom}",),
+                               SizedBox(width: 6,),
+                               HomeIcon(cardicon: Icons.bathtub, cardtitle: "${propertyBeanClass.n_bathroom}"),
+
+                             ],
+                           ),
                         ),
-                        SizedBox(height: 4,),
-                        Divider(
-                          thickness: 1.2,
-                          height: 2,
-                          color: MyColor.other_color,
-                        ),
-                        SizedBox(height: 4,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(Icons.phone,color: MyColor.other_color,),
-                                Text("Call",style: TextStyle(
-                                  color: MyColor.other_color,
-                                ),),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Icon(Icons.mail_outline,color: MyColor.other_color,),
-                                Text("Mail",style: TextStyle(
-                                  color: MyColor.other_color,
-                                ),),
-                              ],
-                            ),
-                          ],
-                        ),
+
+
                       ],
                     ),
                   ),
                 ),
               ),
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: Stack(
                   children: [
 
@@ -141,7 +112,7 @@ class PropertyCard extends StatelessWidget {
                       height: double.infinity,
                       width: double.infinity,
                       child: Image(
-                        image: AssetImage(image,),
+                        image: NetworkImage("${propertyBeanClass.cover_img!}"),
                         fit: BoxFit.fill,
                       ),),
                     favouriteIcon ? Container(
