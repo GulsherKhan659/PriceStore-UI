@@ -36,6 +36,7 @@ dependencies:
   photo_view:
   dropdown_search: ^2.0.0
   firebase_storage: ^10.1.0
+  cached_network_image: ^3.1.0+1
 dev_dependencies:
   flutter_native_splash: ^1.2.4
 
@@ -86,7 +87,7 @@ flutter:
    - assets/s4.jpg
    - assets/b_green.jpg
    - assets/g_city.jpg
-     assets/toyota.png
+   - assets/toyota.png
    - assets/honda.png
    - assets/kia.png
    - assets/hyundai.png

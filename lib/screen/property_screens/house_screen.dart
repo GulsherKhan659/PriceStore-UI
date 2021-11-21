@@ -14,10 +14,10 @@ import '/screen/widgets/floating_button.dart';
 import '/screen/widgets/home_icons.dart';
 
 class HouseScreen extends StatelessWidget {
-   HouseScreen({Key? key,required this.propertyModel}) : super(key: key);
-   PropertyBeanClass propertyModel;
+  HouseScreen({Key? key, required this.propertyModel}) : super(key: key);
+  PropertyBeanClass propertyModel;
 
-  RDrawerController  _rDrawerController = Get.find();
+  RDrawerController _rDrawerController = Get.find();
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width - 20;
@@ -25,142 +25,185 @@ class HouseScreen extends StatelessWidget {
       appBar: MyAppBar(_rDrawerController.housescreenscaffoldkey),
       endDrawer: CustomDrawer(),
       key: _rDrawerController.housescreenscaffoldkey,
-      floatingActionButton:FAB(),
+      floatingActionButton: FAB(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-
       body: AppBg(
         child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: ListView(
                 children: [
-
-
-                  Expanded(
-                    child:ListView(
-                      shrinkWrap: true,
+                  Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.all(8),
+                    child: Text(
+                      "${propertyModel.title}",
+                      style: TextStyle(
+                          fontSize: 25,
+                          height: 1.2,
+                          fontWeight: FontWeight.bold,
+                          color: MyColor.font_color),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.all(8),
-                          child: Text(
-                            "${propertyModel.title}",style: TextStyle(
-                              fontSize: 25,
-                              height: 1.2,
-                              fontWeight: FontWeight.bold,
-                              color: MyColor.font_color
-                          ),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-
-                              RichText(text: TextSpan(
-                                  style: TextStyle(
-                                      color: MyColor.other_color
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                                text: TextSpan(
+                                    style:
+                                        TextStyle(color: MyColor.other_color),
+                                    children: [
+                                  TextSpan(
+                                    text: "PKR ",
+                                    style: TextStyle(fontSize: 16),
                                   ),
-                                  children: [
-                                    TextSpan(
-                                        text: "PKR ",style: TextStyle(
-                                        fontSize: 16
-                                    ),
-                                    ),
-                                    TextSpan(
-                                        text: " ${propertyModel.price}",style: TextStyle(
-                                        fontSize: 26
-                                    ),
-                                    ),
-                                  ]
-                              )),
-                              Text("${propertyModel.location},${propertyModel.city}",style: TextStyle(
+                                  TextSpan(
+                                    text: " ${propertyModel.price}",
+                                    style: TextStyle(fontSize: 26),
+                                  ),
+                                ])),
+                            Text(
+                              "${propertyModel.location},${propertyModel.city}",
+                              style: TextStyle(
                                   height: 1.2,
                                   fontSize: 17,
-                                  color: MyColor.font_color
-                              ),),
-                              Text("${propertyModel.location},${propertyModel.city}",style: TextStyle(
+                                  color: MyColor.font_color),
+                            ),
+                            Text(
+                              "${propertyModel.location},${propertyModel.city}",
+                              style: TextStyle(
                                   decoration: TextDecoration.underline,
                                   fontSize: 13,
                                   height: 1.2,
-                                  color: MyColor.icon_color
-                              ),),
-                              Text("Posted Date : ${propertyModel.adPostDate}",style: TextStyle(
+                                  color: MyColor.icon_color),
+                            ),
+                            Text(
+                              "Posted Date : ${propertyModel.adPostDate}",
+                              style: TextStyle(
                                   fontSize: 11,
                                   height: 1.2,
-                                  color: MyColor.font_color
-                              ),),
-                              Text("Key Feature :",style: TextStyle(
+                                  color: MyColor.font_color),
+                            ),
+                            Text(
+                              "Key Feature :",
+                              style: TextStyle(
                                   fontSize: 16,
                                   height: 1.8,
                                   fontWeight: FontWeight.bold,
-                                  color: MyColor.font_color
-                              ),),
-                              Container(
-                                padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 12),
-                                child: Column(
-                                  children: [
-                                    HomeIcon(isCard: false,cardicon: Icons.king_bed_outlined,cardtitle: "${propertyModel.n_bedroom} Bedroom",),
-                                    HomeIcon(isCard: false,cardicon: Icons.bathtub, cardtitle: "${propertyModel.n_bathroom} Washroom"),
-                                    HomeIcon(isCard: false,cardicon: Icons.garage, cardtitle: "Garage"),
-                                    HomeIcon(isCard: false,cardicon: Icons.weekend, cardtitle: "Lawn"),
-                                  ],
-                                ),
+                                  color: MyColor.font_color),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 12),
+                              child: Column(
+                                children: [
+                                  HomeIcon(
+                                    isCard: false,
+                                    cardicon: Icons.king_bed_outlined,
+                                    cardtitle:
+                                        "${propertyModel.n_bedroom} Bedroom",
+                                  ),
+                                  HomeIcon(
+                                      isCard: false,
+                                      cardicon: Icons.bathtub,
+                                      cardtitle:
+                                          "${propertyModel.n_bathroom} Washroom"),
+                                  HomeIcon(
+                                      isCard: false,
+                                      cardicon: Icons.garage,
+                                      cardtitle: "Garage"),
+                                  HomeIcon(
+                                      isCard: false,
+                                      cardicon: Icons.weekend,
+                                      cardtitle: "Lawn"),
+                                ],
                               ),
-                             Wrap(
-                               children: propertyModel.ad_images!.map((e) => ImageCard(
-                                 image: e,
-                                 width:width,
-                               )).toList(),
-                             ),
-                          //  HouseCard(),
-                              SizedBox(height: 5,),
-                              Text("${propertyModel.description}"
-                                ,style: TextStyle(
-                                  color: MyColor.font_color
-                                ),)
-                            ],
-                          ),
-                        ),
-
-                        SizedBox(height: 10,),
-
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                          color: Colors.grey,
-                         child: Row(
-                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                             children: [
-
-                            Row(children: [
-                              Icon(Icons.call),
-                              Text("Call",style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold
-                              ),),
-                            ],),
-                           Row(children: [
-                             Icon(Icons.mail),
-                             Text("Send Message",style: TextStyle(
-                                 fontSize: 18,
-                                 fontWeight: FontWeight.bold
-                             ),),
-                           ],)
+                            ),
                           ],
-                         ),
                         ),
-                        SizedBox(height: 10,),
+                        ///////
+                        Wrap(
+                          children: propertyModel.ad_images!
+                              .map((e) => ImageCard(
+                                    image: e,
+                                    width: width,
+                                  ))
+                              .toList(),
+                        ),
+                        //  HouseCard(),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "${propertyModel.description}",
+                          style: TextStyle(color: MyColor.font_color),
+                        ),
 
-                        ////////Add email and call
+                        ///////
                       ],
                     ),
                   ),
-                  SizedBox(height:30),
-                  Footer(),
-                ],
 
+                  ////////Add email and call
+                ],
+              ),
+            ),
+            Column(
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                // Spacer(),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  color: Colors.grey,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 2),
+                        child: Row(
+                          children: [
+                            Icon(Icons.call),
+                            Text(
+                              "Call",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 2),
+                        child: Row(
+                          children: [
+                            Icon(Icons.mail),
+                            Text(
+                              "Whatsapp",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Footer(),
+          ],
         ),
       ),
-
     );
   }
 }

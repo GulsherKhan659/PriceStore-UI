@@ -12,81 +12,101 @@ import '/utils/app_bar.dart';
 import '/utils/colors.dart';
 import '/utils/drawer.dart';
 
-
 class SearchCar extends StatelessWidget {
-   SearchCar({Key? key}) : super(key: key);
-  RDrawerController  _rDrawerController = Get.find();
-  VehicalDataController _vDataController =Get.find();
+  SearchCar({Key? key}) : super(key: key);
+  RDrawerController _rDrawerController = Get.find();
+  VehicalDataController _vDataController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(_rDrawerController.searchcarscaffoldkey),
       endDrawer: CustomDrawer(),
       key: _rDrawerController.searchcarscaffoldkey,
-      floatingActionButton:FAB(),
+      floatingActionButton: FAB(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-
       body: AppBg(
         child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+              child: Text(
+                "All Availble Cars For Sale",
+                style: TextStyle(color: MyColor.font_color, fontSize: 20),
+              ),
+            ),
+            Container(
+              color: Colors.white70,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
-                  Container(
-                    padding:const EdgeInsets.symmetric(horizontal: 10,vertical: 2),
-                    child: Text("All Availble Cars For Sale",style: TextStyle(
-                        color: MyColor.font_color,
-                        fontSize: 20
-                    ),),
-                  ),
-                  Container(
-                    color: Colors.white70,
-
-                    padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Obx(
-                        ()=> Text("${_vDataController.filterVehicalList.length} Resualt",style: TextStyle(
-                            fontWeight: FontWeight.bold,
-
-
-                          ),),
-                        ),
-                        Row(
-                          children: [
-                            Text("Sort by : Defualt order",style: TextStyle(
-                              fontWeight: FontWeight.bold,
-
-
-                            )),
-                            Icon(Icons.arrow_drop_down)
-                          ],
-                        ),
-
-                      ],
+                  Obx(
+                    () => Text(
+                      "${_vDataController.filterVehicalList.length} Resualt",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  Expanded(child:ListView(
+                  Row(
                     children: [
-                      Obx(()=> _vDataController.filterVehicalList != null ? Container(
-                          height:50,
-                          width:50,
-                          color: Colors.purpleAccent,
-                          child: CircularProgressIndicator()):GridView.builder(
-                          shrinkWrap: true,
-                          itemCount: _vDataController.filterVehicalList.length,
-                          physics: NeverScrollableScrollPhysics(),
-                          gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,childAspectRatio: 1,crossAxisSpacing: 1,mainAxisExtent: 280), itemBuilder:(context,index){
-                        return CarCard(vehicleBeanClass:_vDataController.filterVehicalList[index],);
-                      }),),
+                      Text("Sort by : Defualt order",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          )),
+                      Icon(Icons.arrow_drop_down)
                     ],
-                  ),),
-                  Footer(),
+                  ),
                 ],
-             
+              ),
+            ),
+            Expanded(
+              child: ListView(
+                children: [
+                  Obx(
+                    () => _vDataController.vehicalList.isEmpty
+                        ? _vDataController.isNoAds.value
+                            ? Center(
+                                child: Text(
+                                  "No Ads Found",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              )
+                            : Center(
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              )
+                        : GridView.builder(
+                            shrinkWrap: true,
+                            itemCount:
+                                _vDataController.filterVehicalList.length,
+                            physics: NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    childAspectRatio: 1,
+                                    crossAxisSpacing: 1,
+                                    mainAxisExtent: 280),
+                            itemBuilder: (context, index) {
+                              return CarCard(
+                                vehicleBeanClass:
+                                    _vDataController.filterVehicalList[index],
+                              );
+                            }),
+                  ),
+                ],
+              ),
+            ),
+            Footer(),
+          ],
         ),
       ),
-
     );
   }
 }

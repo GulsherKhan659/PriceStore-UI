@@ -6,9 +6,9 @@ import '/utils/app_bar.dart';
 import '/utils/drawer.dart';
 
 class MapScreen extends StatelessWidget {
-  MapScreen({Key? key,required this.image}) : super(key: key);
+  MapScreen({Key? key, required this.image}) : super(key: key);
   String image;
-  RDrawerController  _rDrawerController = Get.find();
+  RDrawerController _rDrawerController = Get.find();
   @override
   Widget build(BuildContext context) {
     print(image);
@@ -19,18 +19,16 @@ class MapScreen extends StatelessWidget {
       // floatingActionButton:FAB(),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
 
-      body: LayoutBuilder(
-          builder: (context,constraint){
-            return Container(
-              width: constraint.maxWidth,
-              height:constraint.maxHeight,
-            child: PhotoView(
+      body: LayoutBuilder(builder: (context, constraint) {
+        return Container(
+          width: constraint.maxWidth,
+          height: constraint.maxHeight,
+          child: PhotoView(
             imageProvider: AssetImage(image),
-            ),
-            );
-          }
-      ),
-
-    );;
+          ),
+        );
+      }),
+    );
+    ;
   }
 }
