@@ -62,45 +62,39 @@ class SearchCar extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ListView(
-                children: [
-                  Obx(
-                    () => _vDataController.vehicalList.isEmpty
-                        ? _vDataController.isNoAds.value
-                            ? Center(
-                                child: Text(
-                                  "No Ads Found",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              )
-                            : Center(
-                                child: Container(
-                                  width: 100,
-                                  height: 100,
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              )
-                        : GridView.builder(
-                            shrinkWrap: true,
-                            itemCount:
-                                _vDataController.filterVehicalList.length,
-                            physics: NeverScrollableScrollPhysics(),
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    childAspectRatio: 1,
-                                    crossAxisSpacing: 1,
-                                    mainAxisExtent: 280),
-                            itemBuilder: (context, index) {
-                              return CarCard(
-                                vehicleBeanClass:
-                                    _vDataController.filterVehicalList[index],
-                              );
-                            }),
-                  ),
-                ],
+              child: Obx(
+                () => _vDataController.filterVehicalList.isEmpty
+                    ? _vDataController.isNoAds.value
+                        ? Center(
+                            child: Text(
+                              "No Ads Found",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )
+                        : Center(
+                            child: Container(
+                              width: 100,
+                              height: 100,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            ),
+                          )
+                    : GridView.builder(
+                        shrinkWrap: true,
+                        itemCount: _vDataController.filterVehicalList.length,
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 1,
+                            crossAxisSpacing: 1,
+                            mainAxisExtent: 280),
+                        itemBuilder: (context, index) {
+                          return CarCard(
+                            vehicleBeanClass:
+                                _vDataController.filterVehicalList[index],
+                          );
+                        }),
               ),
             ),
             Footer(),
