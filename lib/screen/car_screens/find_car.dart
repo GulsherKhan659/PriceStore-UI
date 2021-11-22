@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pricestore/controllers/user_controller.dart';
 // Custom Import
 import '/screen/widgets/car_card_grid.dart';
 import '/utils/app_bar.dart';
@@ -16,6 +17,7 @@ class FindCarScreen extends StatelessWidget {
   FindCarScreen({Key? key}) : super(key: key);
   RDrawerController _rDrawerController = Get.find();
   VehicalDataController _vDataController = Get.put(VehicalDataController());
+  UserController _userController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,10 +121,25 @@ class FindCarScreen extends StatelessWidget {
                                     crossAxisSpacing: 1,
                                     mainAxisExtent: 280),
                             itemBuilder: (context, index) {
-                              return CarCard(
-                                vehicleBeanClass:
-                                    _vDataController.vehicalList[index],
-                              );
+                              // _userController.setUserInfo(
+                              // userId: _vDataController
+                              //     .vehicalList[index].authorId!);
+                              return FutureBuilder(
+                                  future: _userController.setUserInfo(
+                                      userId: _vDataController
+                                          .vehicalList[index].authorId!),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData)
+                                      return CarCard(
+                                        phonenum: _userController.otherUserNum,
+                                        vehicleBeanClass:
+                                            _vDataController.vehicalList[index],
+                                      );
+                                    return Center(
+                                        child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ));
+                                  });
                             }),
                   ),
                 ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pricestore/controllers/user_controller.dart';
 import '/controllers/drawer_controller.dart';
 import '/controllers/propety_data_controller.dart';
 import '/screen/widgets/background.dart';
@@ -18,6 +19,7 @@ class FindPerfectPlace extends StatelessWidget {
 
   RDrawerController _rDrawerController = Get.find();
   PropertyDataController _propertyData = Get.put(PropertyDataController());
+  UserController _userController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,11 +118,32 @@ class FindPerfectPlace extends StatelessWidget {
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: _propertyData.propertyList.length,
                             itemBuilder: (context, index) {
-                              return PropertyCard(
-                                  constraint: constraint,
-                                  favouriteIcon: true,
-                                  propertyBeanClass:
-                                      _propertyData.propertyList[index]);
+                              print(
+                                  _propertyData.propertyList[index].author_id);
+                              return FutureBuilder(
+                                  future: _userController.setUserInfo(
+                                      userId: _propertyData
+                                          .propertyList[index].author_id),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData)
+                                      return PropertyCard(
+                                        phonenum: _userController.otherUserNum,
+                                        constraint: constraint,
+                                        favouriteIcon: true,
+                                        propertyBeanClass:
+                                            _propertyData.propertyList[index],
+                                      );
+
+                                    return Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 20),
+                                        child: CircularProgressIndicator(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    );
+                                  });
                             }))
                   ],
                 ),

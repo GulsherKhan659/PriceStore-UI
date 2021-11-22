@@ -3,17 +3,23 @@ import 'package:get/route_manager.dart';
 import 'package:pricestore/modals/vehicle_modal.dart';
 import 'package:pricestore/screen/car_screens/car_screen.dart';
 import 'package:pricestore/utils/colors.dart';
+import 'package:pricestore/utils/msg_method.dart';
 import 'package:pricestore/utils/route_name.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class CarCard extends StatelessWidget {
-  CarCard({Key? key, required this.vehicleBeanClass}) : super(key: key);
+  CarCard({Key? key, required this.vehicleBeanClass, required this.phonenum})
+      : super(key: key);
+  String phonenum;
   VehicleBeanClass? vehicleBeanClass;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(CarScreen(vehicleBeanClass: vehicleBeanClass)),
+      onTap: () => Get.to(CarScreen(
+        vehicleBeanClass: vehicleBeanClass,
+        phoneNumber: phonenum,
+      )),
       child: Container(
           margin: const EdgeInsets.all(10),
           decoration: BoxDecoration(
@@ -93,33 +99,45 @@ class CarCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.phone,
-                              color: MyColor.other_color,
-                            ),
-                            Text(
-                              "Call",
-                              style: TextStyle(
+                        GestureDetector(
+                          onTap: () {
+                            MsgMethod.doCall(number: "$phonenum");
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.phone,
                                 color: MyColor.other_color,
                               ),
-                            ),
-                          ],
+                              Text(
+                                "Call",
+                                style: TextStyle(
+                                  color: MyColor.other_color,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.mail_outline,
-                              color: MyColor.other_color,
-                            ),
-                            Text(
-                              "Mail",
-                              style: TextStyle(
+                        GestureDetector(
+                          onTap: () {
+                            MsgMethod.doWhatsapp(
+                                number: "$phonenum",
+                                msg: "${vehicleBeanClass!.title}");
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.mail_outline,
                                 color: MyColor.other_color,
                               ),
-                            ),
-                          ],
+                              Text(
+                                "Whatsapp",
+                                style: TextStyle(
+                                  color: MyColor.other_color,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

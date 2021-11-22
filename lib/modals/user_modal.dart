@@ -7,7 +7,12 @@ class UserBeanClass {
   String? email;
 
   UserBeanClass(
-      {this.favorites,required this.phone, this.myAds,required this.name,required this.email,this.isAdmin =false});
+      {this.favorites,
+      required this.phone,
+      this.myAds,
+      required this.name,
+      required this.email,
+      this.isAdmin = false});
 
   UserBeanClass.fromJson(Map<String, dynamic> json) {
     favorites = json['favorites'] != null
@@ -15,7 +20,7 @@ class UserBeanClass {
         : null;
     phone = json['phone'];
     myAds =
-    json[' my_ads'] != null ? new MyAds.fromJson(json[' my_ads']) : null;
+        json[' my_ads'] != null ? new MyAds.fromJson(json[' my_ads']) : null;
     name = json['name'];
     email = json['email'];
   }

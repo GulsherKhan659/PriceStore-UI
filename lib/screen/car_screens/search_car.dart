@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:get/get.dart';
 import 'package:pricestore/controllers/drawer_controller.dart';
+import 'package:pricestore/controllers/user_controller.dart';
 import 'package:pricestore/controllers/vechical_data_controller.dart';
 import 'package:pricestore/screen/widgets/background.dart';
 import 'package:pricestore/screen/widgets/car_card_grid.dart';
@@ -16,6 +17,7 @@ class SearchCar extends StatelessWidget {
   SearchCar({Key? key}) : super(key: key);
   RDrawerController _rDrawerController = Get.find();
   VehicalDataController _vDataController = Get.find();
+  UserController _userController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +92,11 @@ class SearchCar extends StatelessWidget {
                             crossAxisSpacing: 1,
                             mainAxisExtent: 280),
                         itemBuilder: (context, index) {
+                          _userController.setUserInfo(
+                              userId: _vDataController
+                                  .filterVehicalList[index].authorId!);
                           return CarCard(
+                            phonenum: _userController.otherUserNum,
                             vehicleBeanClass:
                                 _vDataController.filterVehicalList[index],
                           );

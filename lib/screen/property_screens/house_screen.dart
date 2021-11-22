@@ -5,6 +5,7 @@ import 'package:pricestore/controllers/drawer_controller.dart';
 import 'package:pricestore/modals/property_modal.dart';
 import 'package:pricestore/screen/widgets/background.dart';
 import 'package:pricestore/screen/widgets/image_card.dart';
+import 'package:pricestore/utils/msg_method.dart';
 // Custom Import
 import '/utils/footer.dart';
 import '/utils/app_bar.dart';
@@ -14,8 +15,11 @@ import '/screen/widgets/floating_button.dart';
 import '/screen/widgets/home_icons.dart';
 
 class HouseScreen extends StatelessWidget {
-  HouseScreen({Key? key, required this.propertyModel}) : super(key: key);
+  HouseScreen(
+      {Key? key, required this.propertyModel, required this.phoneNumber})
+      : super(key: key);
   PropertyBeanClass propertyModel;
+  String phoneNumber;
 
   RDrawerController _rDrawerController = Get.find();
   @override
@@ -170,29 +174,41 @@ class HouseScreen extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 2),
-                        child: Row(
-                          children: [
-                            Icon(Icons.call),
-                            Text(
-                              "Call",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                        child: GestureDetector(
+                          onTap: () {
+                            MsgMethod.doCall(number: "$phoneNumber");
+                          },
+                          child: Row(
+                            children: [
+                              Icon(Icons.call),
+                              Text(
+                                "Call",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 2),
-                        child: Row(
-                          children: [
-                            Icon(Icons.mail),
-                            Text(
-                              "Whatsapp",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                        child: GestureDetector(
+                          onTap: () {
+                            MsgMethod.doWhatsapp(
+                                number: "$phoneNumber",
+                                msg: "${propertyModel.title}");
+                          },
+                          child: Row(
+                            children: [
+                              Icon(Icons.mail),
+                              Text(
+                                "Whatsapp",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
                       )
                     ],

@@ -11,16 +11,19 @@ class PropertyCard extends StatelessWidget {
       {Key? key,
       required this.constraint,
       required this.favouriteIcon,
-      required this.propertyBeanClass})
+      required this.propertyBeanClass,
+      required this.phonenum})
       : super(key: key);
   BoxConstraints constraint;
   bool favouriteIcon;
+  String phonenum;
 
   PropertyBeanClass propertyBeanClass;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(() => HouseScreen(propertyModel: propertyBeanClass)),
+      onTap: () => Get.to(() =>
+          HouseScreen(phoneNumber: phonenum, propertyModel: propertyBeanClass)),
       child: Container(
         height: 130,
         width: constraint.maxWidth,

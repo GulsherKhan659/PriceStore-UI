@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pricestore/modals/vehicle_modal.dart';
 import 'package:pricestore/screen/widgets/image_card.dart';
+import 'package:pricestore/utils/msg_method.dart';
 import '/controllers/drawer_controller.dart';
 import '/screen/widgets/background.dart';
 import '/screen/widgets/floating_button.dart';
@@ -13,7 +14,10 @@ import '/utils/app_bar.dart';
 import '/utils/colors.dart';
 
 class CarScreen extends StatelessWidget {
-  CarScreen({Key? key, required this.vehicleBeanClass}) : super(key: key);
+  CarScreen(
+      {Key? key, required this.vehicleBeanClass, required this.phoneNumber})
+      : super(key: key);
+  String phoneNumber;
   VehicleBeanClass? vehicleBeanClass;
   RDrawerController _rDrawerController = Get.find();
   @override
@@ -142,29 +146,41 @@ class CarScreen extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 2),
-                        child: Row(
-                          children: [
-                            Icon(Icons.call),
-                            Text(
-                              "Call",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                        child: GestureDetector(
+                          onTap: () {
+                            MsgMethod.doCall(number: "$phoneNumber");
+                          },
+                          child: Row(
+                            children: [
+                              Icon(Icons.call),
+                              Text(
+                                "Call",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 2),
-                        child: Row(
-                          children: [
-                            Icon(Icons.mail),
-                            Text(
-                              "Whatsapp",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                        child: GestureDetector(
+                          onTap: () {
+                            MsgMethod.doWhatsapp(
+                                number: "$phoneNumber",
+                                msg: "${vehicleBeanClass!.title}");
+                          },
+                          child: Row(
+                            children: [
+                              Icon(Icons.mail),
+                              Text(
+                                "Whatsapp",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
                         ),
                       )
                     ],

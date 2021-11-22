@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pricestore/controllers/propety_data_controller.dart';
+import 'package:pricestore/controllers/user_controller.dart';
 import 'package:pricestore/screen/widgets/property_card.dart';
 import '/controllers/drawer_controller.dart';
 import '/screen/widgets/background.dart';
@@ -14,6 +15,7 @@ class PropertyScreen extends StatelessWidget {
   PropertyScreen({Key? key}) : super(key: key);
   RDrawerController _rDrawerController = Get.find();
   PropertyDataController _propertyController = Get.find();
+  UserController _userController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +90,11 @@ class PropertyScreen extends StatelessWidget {
                             itemCount:
                                 _propertyController.filterPropertyList.length,
                             itemBuilder: (context, index) {
+                              _userController.setUserInfo(
+                                  userId: _propertyController
+                                      .filterPropertyList[index].author_id);
                               return PropertyCard(
+                                  phonenum: _userController.otherUserNum,
                                   constraint: constraint,
                                   favouriteIcon: true,
                                   propertyBeanClass: _propertyController

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pricestore/controllers/user_controller.dart';
 import '/controllers/drawer_controller.dart';
 import '/controllers/fetchHomeScreen_data_controller.dart';
 import '/screen/widgets/background.dart';
@@ -15,6 +16,7 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
   RDrawerController _rDrawerController = Get.find();
   FetchData _fetchData = Get.put(FetchData());
+  UserController _userController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +62,11 @@ class HomeScreen extends StatelessWidget {
                               itemCount: _fetchData.propertyHomeList.length,
                               physics: NeverScrollableScrollPhysics(),
                               itemBuilder: (context, i) {
+                                _userController.setUserInfo(
+                                    userId: _fetchData
+                                        .propertyHomeList[i].author_id);
                                 return PropertyCard(
+                                  phonenum: _userController.otherUserNum,
                                   constraint: constraint,
                                   favouriteIcon: false,
                                   propertyBeanClass:
@@ -103,7 +109,11 @@ class HomeScreen extends StatelessWidget {
                                   return Container(
                                     child: CircularProgressIndicator(),
                                   );
+                                _userController.setUserInfo(
+                                    userId:
+                                        _fetchData.vehicalList[index].authorId);
                                 return CarCard(
+                                  phonenum: _userController.otherUserNum,
                                   vehicleBeanClass:
                                       _fetchData.vehicalList[index],
                                 );
